@@ -1,0 +1,25 @@
+<idea-plugin>
+    <name>Properties Compare</name>
+    <version>1.0</version>
+    <vendor email="s.myachenkov@gmail.com"/>
+
+    <description><![CDATA[Plugin for detailed compare of .properies files]]></description>
+
+    <change-notes><![CDATA[First release.]]></change-notes>
+
+    <idea-version since-build="173.0"/>
+    <extensions defaultExtensionNs="com.intellij">
+    </extensions>
+
+    <actions>
+        <group id="PropertiesCompare.PopupMenu" popup="false">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <add-to-group group-id="StructureViewPopupMenu" anchor="last"/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+            <action id="PropertiesCompare.CompareWithFile" class="org.propertiescompare.main.ui.SelectPropertiesAction"
+                    text="Compare with Properties..." description="Select properties file to compare">
+            </action>
+        </group>
+    </actions>
+
+</idea-plugin>

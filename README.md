@@ -1,0 +1,1 @@
+IntelliJ IDEA plugin for detailed comparison of property files.
