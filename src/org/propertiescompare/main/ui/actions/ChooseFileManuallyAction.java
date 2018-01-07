@@ -23,19 +23,47 @@
  */
 package org.propertiescompare.main.ui.actions;
 
+import com.intellij.openapi.fileChooser.FileChooser;
+import com.intellij.openapi.fileChooser.FileChooserDescriptor;
+import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory;
+import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.ui.CollectionListModel;
+import org.propertiescompare.main.compare.PropertyFile;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 public class ChooseFileManuallyAction extends AbstractAction {
 
   public static final String ACTION_LABEL = "Another file...";
 
+  private final FileActionContext context;
+
   public ChooseFileManuallyAction(FileActionContext context) {
     super(ACTION_LABEL);
+    this.context = context;
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    // not implemented yet
+    final FileChooserDescriptor fileChooserDescriptor =
+        FileChooserDescriptorFactory.createSingleFileDescriptor("properties");
+
+    final VirtualFile[] selectedFile = FileChooser.chooseFiles(fileChooserDescriptor, context.getProject(), null);
+
+    if (selectedFile.length > 0) {
+      VirtualFile newFile = selectedFile[0];
+      PropertyFile newPropertiesFile = new PropertyFile(newFile);
+      List<PropertyFile> propertyFiles = context.getFilesAsList();
+
+      if (propertyFiles.stream().anyMatch(file -> file.getVirtualFile().equals(newFile))) {
+        Messages.showInfoMessage(context.getProject(), "File is already in list", "Info");
+      } else {
+        CollectionListModel model = (CollectionListModel) context.getFiles().getModel();
+        model.add(newPropertiesFile);
+      }
+    }
   }
 }

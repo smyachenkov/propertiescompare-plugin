@@ -28,6 +28,9 @@ import com.intellij.openapi.util.Pair;
 import com.intellij.ui.components.JBList;
 import org.propertiescompare.main.compare.PropertyFile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FileActionContext {
   private Project project;
   private PropertyFile startFile;
@@ -45,5 +48,17 @@ public class FileActionContext {
 
   public Pair<PropertyFile, PropertyFile> getComparedFiles() {
     return new Pair<>(startFile, files.getSelectedValue());
+  }
+
+  public JBList<PropertyFile> getFiles() {
+    return files;
+  }
+
+  public List<PropertyFile> getFilesAsList() {
+    List<PropertyFile> fileList = new ArrayList<>();
+    for (int i = 0; i < files.getModel().getSize(); i++) {
+      fileList.add(files.getModel().getElementAt(i));
+    }
+    return fileList;
   }
 }

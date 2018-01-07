@@ -42,9 +42,9 @@ public class ResultEqualEntries extends CompareResult {
   @Override
   protected Pair<TreeSet<PropertiesEntry>, TreeSet<PropertiesEntry>> processProperties(LoadedProperties left,
                                                                                        LoadedProperties right) {
-    Set<String> intersection = new HashSet<>(left.getKeySet());
-    intersection.retainAll(right.getKeySet());
-    TreeSet<PropertiesEntry> result = intersection.stream()
+    Set<String> keyIntersection = new HashSet<>(left.getKeySet());
+    keyIntersection.retainAll(right.getKeySet());
+    TreeSet<PropertiesEntry> result = keyIntersection.stream()
         .filter(entry -> left.getProperty(entry).equals(right.getProperty(entry)))
         .map(entry -> new PropertiesEntry(entry, left.getProperty(entry)))
         .collect(Collectors.toCollection(TreeSet::new));

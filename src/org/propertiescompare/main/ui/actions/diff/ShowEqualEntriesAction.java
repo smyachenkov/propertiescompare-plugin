@@ -39,6 +39,6 @@ public class ShowEqualEntriesAction extends AbstractDiffAction {
 
   @Override
   protected CompareResult createCompareResult(Pair<PropertyFile, PropertyFile> files) {
-    return new ResultEqualEntries(files.first, files.first);
+    return new ResultEqualEntries(files.first, files.second);
   }
 }
