@@ -3,7 +3,7 @@
     <version>1.0</version>
     <vendor email="s.myachenkov@gmail.com"/>
 
-    <description><![CDATA[Plugin for detailed compare of .properies files]]></description>
+    <description><![CDATA[Plugin for detailed compare of .properties files]]></description>
 
     <change-notes><![CDATA[First release.]]></change-notes>
 

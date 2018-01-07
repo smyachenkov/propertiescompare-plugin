@@ -51,4 +51,8 @@ public class PropertyFile {
   public String getFullPath() {
     return fullPath;
   }
+
+  public VirtualFile getVirtualFile() {
+    return virtualFile;
+  }
 }
