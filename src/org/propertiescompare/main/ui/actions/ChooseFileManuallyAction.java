@@ -63,6 +63,7 @@ public class ChooseFileManuallyAction extends AbstractAction {
       } else {
         CollectionListModel model = (CollectionListModel) context.getFiles().getModel();
         model.add(newPropertiesFile);
+        context.getFiles().setSelectedIndex(model.getSize() - 1);
       }
     }
   }
