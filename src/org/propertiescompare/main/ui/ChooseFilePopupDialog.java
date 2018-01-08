@@ -54,7 +54,7 @@ public class ChooseFilePopupDialog extends DialogWrapper {
     this.project = project;
     this.files = files.getFiles();
     this.startFile = startFile;
-    super.setTitle("Select file to compare");
+    super.setTitle("Select file to compare with");
     super.init();
   }
 
