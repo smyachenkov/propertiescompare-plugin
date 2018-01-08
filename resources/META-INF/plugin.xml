@@ -1,9 +1,20 @@
 <idea-plugin>
     <name>Properties Compare</name>
-    <version>1.0</version>
+    <version>1.1</version>
     <vendor email="s.myachenkov@gmail.com"/>
 
-    <description><![CDATA[Plugin for detailed compare of .properties files]]></description>
+    <description><![CDATA[
+        <p>Plugin for detailed compare of .properties files.</p>
+
+        <p>This plugin adds new button "Compare with Properties..." to right click menu in project structure tree or in editor for files with .properties extension. Selecting this action allows you to compare this file with any other properties file included in current project as well as any other file in file system. </p>
+
+        <p>There are 3 comparison methods:<br>
+         • Show all content of both file<br>
+         • Show only different entries<br>
+         • Show only same entries</p>
+
+        <p>Comparison result includes only keys and values of properties files, all comments, empty lines, line breaks etc. are removed, allowing you to see only content that matters for your task.</p>
+    ]]></description>
 
     <change-notes><![CDATA[First release.]]></change-notes>
 
