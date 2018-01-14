@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Stanislav Myachenkov
+ * Copyright (c) 2017-2018 Stanislav Myachenkov
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,10 +24,11 @@
 package org.propertiescompare.main.ui.actions.diff;
 
 import com.intellij.openapi.util.Pair;
-import org.propertiescompare.main.compare.PropertyFile;
 import org.propertiescompare.main.compare.result.CompareResult;
 import org.propertiescompare.main.compare.result.ResultAllEntries;
 import org.propertiescompare.main.ui.actions.FileActionContext;
+
+import java.util.Properties;
 
 public class ShowAllEntriesAction extends AbstractDiffAction {
 
@@ -38,7 +39,7 @@ public class ShowAllEntriesAction extends AbstractDiffAction {
   }
 
   @Override
-  protected CompareResult createCompareResult(Pair<PropertyFile, PropertyFile> files) {
+  protected CompareResult createCompareResult(Pair<Properties, Properties> files) {
     return new ResultAllEntries(files.first, files.second);
   }
 }

@@ -24,28 +24,27 @@
 package org.propertiescompare.main.compare.result;
 
 import com.intellij.openapi.util.Pair;
-import org.propertiescompare.main.compare.PropertyFile;
-import org.propertiescompare.main.compare.LoadedProperties;
 import org.propertiescompare.main.compare.PropertiesEntry;
 
+import java.util.Properties;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class ResultAllEntries extends CompareResult {
 
-  public ResultAllEntries(PropertyFile left, PropertyFile right) {
+  public ResultAllEntries(Properties left, Properties right) {
     super(left, right);
   }
 
   @Override
-  protected Pair<TreeSet<PropertiesEntry>, TreeSet<PropertiesEntry>> processProperties(LoadedProperties left,
-                                                                                       LoadedProperties right) {
+  protected Pair<TreeSet<PropertiesEntry>, TreeSet<PropertiesEntry>> processProperties(Properties left,
+                                                                                       Properties right) {
     return new Pair<>(propertiesToTreeSet(left), propertiesToTreeSet(right));
   }
 
-  private TreeSet<PropertiesEntry> propertiesToTreeSet(LoadedProperties properties) {
-    return properties.getKeySet().stream()
-        .map(key -> new PropertiesEntry(key, properties.getProperty(key)))
+  private TreeSet<PropertiesEntry> propertiesToTreeSet(Properties properties) {
+    return properties.keySet().stream()
+        .map(key -> new PropertiesEntry(key.toString(), properties.getProperty(key.toString())))
         .collect(Collectors.toCollection(TreeSet::new));
   }
 }
