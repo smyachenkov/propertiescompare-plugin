@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Stanislav Myachenkov
+ * Copyright (c) 2017-2018 Stanislav Myachenkov
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,39 +24,30 @@
 package org.propertiescompare.main.compare.result;
 
 import com.intellij.openapi.util.Pair;
-import org.propertiescompare.main.compare.PropertyFile;
-import org.propertiescompare.main.compare.LoadedProperties;
 import org.propertiescompare.main.compare.PropertiesEntry;
 
+import java.util.Properties;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 public abstract class CompareResult {
 
-  protected TreeSet<PropertiesEntry> rightSide;
-  protected TreeSet<PropertiesEntry> leftSide;
+  private TreeSet<PropertiesEntry> rightSide;
+  private TreeSet<PropertiesEntry> leftSide;
 
-  public CompareResult(PropertyFile left, PropertyFile right) {
-    Pair<TreeSet<PropertiesEntry>, TreeSet<PropertiesEntry>> result = processProperties(new LoadedProperties(left),
-                                                                                        new LoadedProperties(right));
+  public CompareResult(Properties left, Properties right) {
+    Pair<TreeSet<PropertiesEntry>, TreeSet<PropertiesEntry>> result = processProperties(left, right);
     leftSide = result.first;
     rightSide = result.second;
   }
 
-  protected abstract Pair<TreeSet<PropertiesEntry>, TreeSet<PropertiesEntry>> processProperties(LoadedProperties left,
-                                                                                                LoadedProperties right);
+  protected abstract Pair<TreeSet<PropertiesEntry>, TreeSet<PropertiesEntry>> processProperties(Properties left,
+                                                                                                Properties right);
 
-  public String getRightSide() {
-    return resultToString(rightSide);
+  public TreeSet<PropertiesEntry> getRightSide() {
+    return rightSide;
   }
 
-  public String getLeftSide() {
-    return resultToString(leftSide);
-  }
-
-  private String resultToString(TreeSet<PropertiesEntry> result) {
-    return result.stream()
-        .map(e -> e.getKey() + "=" + e.getValue())
-        .collect(Collectors.joining("\n"));
+  public TreeSet<PropertiesEntry> getLeftSide() {
+    return leftSide;
   }
 }

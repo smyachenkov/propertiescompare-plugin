@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Stanislav Myachenkov
+ * Copyright (c) 2017-2018 Stanislav Myachenkov
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,26 +24,25 @@
 package org.propertiescompare.main.compare.result;
 
 import com.intellij.openapi.util.Pair;
-import org.propertiescompare.main.compare.PropertyFile;
-import org.propertiescompare.main.compare.LoadedProperties;
 import org.propertiescompare.main.compare.PropertiesEntry;
 
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class ResultEqualEntries extends CompareResult {
 
-  public ResultEqualEntries(PropertyFile left, PropertyFile right) {
+  public ResultEqualEntries(Properties left, Properties right) {
     super(left, right);
   }
 
   @Override
-  protected Pair<TreeSet<PropertiesEntry>, TreeSet<PropertiesEntry>> processProperties(LoadedProperties left,
-                                                                                       LoadedProperties right) {
-    Set<String> keyIntersection = new HashSet<>(left.getKeySet());
-    keyIntersection.retainAll(right.getKeySet());
+  protected Pair<TreeSet<PropertiesEntry>, TreeSet<PropertiesEntry>> processProperties(Properties left,
+                                                                                       Properties right) {
+    Set<String> keyIntersection = new HashSet<>(left.stringPropertyNames());
+    keyIntersection.retainAll(right.keySet());
     TreeSet<PropertiesEntry> result = keyIntersection.stream()
         .filter(entry -> left.getProperty(entry).equals(right.getProperty(entry)))
         .map(entry -> new PropertiesEntry(entry, left.getProperty(entry)))

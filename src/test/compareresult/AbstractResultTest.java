@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017-2018 Stanislav Myachenkov
+ * Copyright (c) 2018 Stanislav Myachenkov
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,25 +21,30 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-package org.propertiescompare.main.ui.actions.diff;
+package compareresult;
 
-import com.intellij.openapi.util.Pair;
-import org.propertiescompare.main.compare.result.CompareResult;
-import org.propertiescompare.main.compare.result.ResultEqualEntries;
-import org.propertiescompare.main.ui.actions.FileActionContext;
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
+import org.junit.Before;
 
 import java.util.Properties;
 
-public class ShowEqualEntriesAction extends AbstractDiffAction {
+public abstract class AbstractResultTest {
 
-  public static final String ACTION_LABEL = "Show Same";
+  protected Properties leftProperties;
+  protected Properties rightProperties;
 
-  public ShowEqualEntriesAction(FileActionContext context) {
-    super(ACTION_LABEL, context);
+  @Before
+  public void initRandomProperties() {
+    leftProperties = createProperties(RandomUtils.nextInt(2, 10));
+    rightProperties = createProperties(RandomUtils.nextInt(2, 10));
   }
 
-  @Override
-  protected CompareResult createCompareResult(Pair<Properties, Properties> files) {
-    return new ResultEqualEntries(files.first, files.second);
+  private Properties createProperties(int numberOfEntries) {
+    Properties properties = new Properties();
+    for (int i=0; i<numberOfEntries; i++) {
+      properties.put(RandomStringUtils.random(5), RandomStringUtils.random(5));
+    }
+    return properties;
   }
 }

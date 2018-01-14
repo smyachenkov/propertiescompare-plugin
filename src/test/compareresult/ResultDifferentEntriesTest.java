@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017-2018 Stanislav Myachenkov
+ * Copyright (c) 2018 Stanislav Myachenkov
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,25 +21,26 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-package org.propertiescompare.main.ui.actions.diff;
+package compareresult;
 
-import com.intellij.openapi.util.Pair;
-import org.propertiescompare.main.compare.result.CompareResult;
-import org.propertiescompare.main.compare.result.ResultEqualEntries;
-import org.propertiescompare.main.ui.actions.FileActionContext;
+import org.apache.commons.lang.RandomStringUtils;
+import org.junit.Assert;
+import org.junit.Test;
+import org.propertiescompare.main.compare.result.ResultDifferentEntries;
 
-import java.util.Properties;
+public class ResultDifferentEntriesTest extends AbstractResultTest {
 
-public class ShowEqualEntriesAction extends AbstractDiffAction {
+  @Test
+  public void testResultDifferentEntries() {
+    String sameKey = RandomStringUtils.random(10);
+    String sameValue = RandomStringUtils.random(10);
+    leftProperties.put(sameKey, sameValue);
+    rightProperties.put(sameKey, sameValue);
+    ResultDifferentEntries resultDifferentEntries = new ResultDifferentEntries(leftProperties, rightProperties);
 
-  public static final String ACTION_LABEL = "Show Same";
+    Assert.assertEquals(leftProperties.size() - 1 , resultDifferentEntries.getLeftSide().size());
+    Assert.assertEquals(rightProperties.size() - 1, resultDifferentEntries.getRightSide().size());
 
-  public ShowEqualEntriesAction(FileActionContext context) {
-    super(ACTION_LABEL, context);
   }
 
-  @Override
-  protected CompareResult createCompareResult(Pair<Properties, Properties> files) {
-    return new ResultEqualEntries(files.first, files.second);
-  }
 }

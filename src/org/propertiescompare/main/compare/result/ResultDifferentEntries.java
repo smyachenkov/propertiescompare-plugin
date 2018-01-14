@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Stanislav Myachenkov
+ * Copyright (c) 2017-2018 Stanislav Myachenkov
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -25,24 +25,23 @@ package org.propertiescompare.main.compare.result;
 
 import com.google.common.collect.Sets;
 import com.intellij.openapi.util.Pair;
-import org.propertiescompare.main.compare.PropertyFile;
-import org.propertiescompare.main.compare.LoadedProperties;
 import org.propertiescompare.main.compare.PropertiesEntry;
 
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class ResultDifferentEntries extends CompareResult {
 
-  public ResultDifferentEntries(PropertyFile left, PropertyFile right) {
+  public ResultDifferentEntries(Properties left, Properties right) {
     super(left, right);
   }
 
   @Override
-  protected Pair<TreeSet<PropertiesEntry>, TreeSet<PropertiesEntry>> processProperties(LoadedProperties left,
-                                                                                       LoadedProperties right) {
-    Set<String> keyIntersection = Sets.intersection(left.getKeySet(), right.getKeySet());
+  protected Pair<TreeSet<PropertiesEntry>, TreeSet<PropertiesEntry>> processProperties(Properties left,
+                                                                                       Properties right) {
+    Set<String> keyIntersection = Sets.intersection(left.stringPropertyNames(), right.stringPropertyNames());
 
     Set<String> fullIntersection = keyIntersection.stream()
         .filter(key -> left.getProperty(key).equals(right.getProperty(key)))
@@ -51,8 +50,8 @@ public class ResultDifferentEntries extends CompareResult {
     return new Pair<>(excludePropertyKeys(left, fullIntersection), excludePropertyKeys(right, fullIntersection));
   }
 
-  private TreeSet<PropertiesEntry> excludePropertyKeys(LoadedProperties properties, Set<String> keys) {
-    return properties.getKeySet().stream()
+  private TreeSet<PropertiesEntry> excludePropertyKeys(Properties properties, Set<String> keys) {
+    return properties.stringPropertyNames().stream()
         .filter(key -> !keys.contains(key))
         .map(key -> new PropertiesEntry(key, properties.getProperty(key)))
         .collect(Collectors.toCollection(TreeSet::new));
