@@ -34,8 +34,10 @@ import java.util.stream.Collectors;
 
 public class ResultEqualEntries extends CompareResult {
 
+  private static final String TITLE = "Equal Entries";
+
   public ResultEqualEntries(Properties left, Properties right) {
-    super(left, right);
+    super(left, right, TITLE);
   }
 
   @Override

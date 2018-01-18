@@ -1,6 +1,6 @@
 <idea-plugin>
     <name>Properties Compare</name>
-    <version>1.1</version>
+    <version>1.2</version>
     <vendor email="s.myachenkov@gmail.com"/>
 
     <description><![CDATA[
