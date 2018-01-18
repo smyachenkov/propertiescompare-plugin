@@ -32,8 +32,10 @@ import java.util.stream.Collectors;
 
 public class ResultAllEntries extends CompareResult {
 
+  private static final String TITLE = "All Entries";
+
   public ResultAllEntries(Properties left, Properties right) {
-    super(left, right);
+    super(left, right, TITLE);
   }
 
   @Override

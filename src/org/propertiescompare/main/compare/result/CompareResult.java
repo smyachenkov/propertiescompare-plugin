@@ -31,13 +31,15 @@ import java.util.TreeSet;
 
 public abstract class CompareResult {
 
+  private final String title;
   private TreeSet<PropertiesEntry> rightSide;
   private TreeSet<PropertiesEntry> leftSide;
 
-  public CompareResult(Properties left, Properties right) {
+  public CompareResult(Properties left, Properties right, String title) {
     Pair<TreeSet<PropertiesEntry>, TreeSet<PropertiesEntry>> result = processProperties(left, right);
     leftSide = result.first;
     rightSide = result.second;
+    this.title = title;
   }
 
   protected abstract Pair<TreeSet<PropertiesEntry>, TreeSet<PropertiesEntry>> processProperties(Properties left,
@@ -49,5 +51,9 @@ public abstract class CompareResult {
 
   public TreeSet<PropertiesEntry> getLeftSide() {
     return leftSide;
+  }
+
+  public String getTitle() {
+    return title;
   }
 }

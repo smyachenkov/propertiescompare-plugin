@@ -34,8 +34,10 @@ import java.util.stream.Collectors;
 
 public class ResultDifferentEntries extends CompareResult {
 
+  private static final String TITLE = "Different Entries";
+
   public ResultDifferentEntries(Properties left, Properties right) {
-    super(left, right);
+    super(left, right, TITLE);
   }
 
   @Override

@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
 
 public abstract class AbstractDiffAction extends AbstractAction {
 
-  protected FileActionContext context;
+  private FileActionContext context;
 
   public AbstractDiffAction(String actionLabel, FileActionContext context) {
     super(actionLabel);
@@ -60,7 +60,7 @@ public abstract class AbstractDiffAction extends AbstractAction {
       CompareResult result = createCompareResult(properties);
       DiffContent left = DiffContentFactory.getInstance().create(resultToString(result.getLeftSide()));
       DiffContent right = DiffContentFactory.getInstance().create(resultToString(result.getRightSide()));
-      SimpleDiffRequest request = new SimpleDiffRequest("Result", left, right,
+      SimpleDiffRequest request = new SimpleDiffRequest(result.getTitle(), left, right,
           files.getFirst().getFullPath(), files.getSecond().getFullPath());
       DiffManager.getInstance().showDiff(context.getProject(), request);
     });
