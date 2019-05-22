@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -40,8 +40,8 @@ public class LoadedProperties {
   public LoadedProperties(@NotNull PropertyFile file) {
     try {
       properties = new Properties();
-      InputStream is = new FileInputStream(file.getFullPath());
-      properties.load(is);
+      InputStreamReader reader = new InputStreamReader(new FileInputStream(file.getFullPath()), StandardCharsets.UTF_8);
+      properties.load(reader);
     } catch (IOException ex) {
       PluginManager.getLogger().error("Error reading file %s", file.getFullPath());
     }
